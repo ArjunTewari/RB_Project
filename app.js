@@ -23,10 +23,10 @@ let url = process.env.MONGO_URL
 // mongooses connecting to db and creating db.
 mongoose.connect(url)
 .then(()=>{
-    console.log("Db connected")
+    console.log("DB connected")
 })
 .catch((err)=>{
-    console.log("Db not Connected", err)
+    console.log("DB not Connected", err)
 })
 
 
