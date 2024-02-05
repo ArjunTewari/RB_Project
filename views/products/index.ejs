@@ -1,0 +1,86 @@
+<%- layout('layouts/boilerplate') %>
+
+<%-include('../partials/flash')%>
+
+    <h1 class="text-center fs-1 fw-semibold"> Products</h1>
+    <div class="row justify-content-around">
+        <div class="category col-2   shadow-sm  h-50 p-2 mb-5 bg-body-light rounded " style="margin-left: 1.5rem; width: 200px;">
+            <form class="checked" action="/products">
+                <h2 class="fs-4">Category</h2>
+                <% for(let category of categories){%>
+                    
+                    <div class="round ">
+                       <% if(category.isActive){%>
+                        <input class="checkbox-field" type="checkbox" 
+                        name="category" value="<%= category.brandName%>" id="<%= category.brandName%>" checked>
+                        <%}else{%>
+                            <input class="checkbox-field" type="checkbox" 
+                            name="category" value="<%= category.brandName%>" id="<%= category.brandName%>">
+                         <%} %>
+
+                        <label class="checkbox-label text-capitalize fs-5" for="<%= category.brandName%>"><%= category.brandName%></label>
+                        
+                    </div>
+                <%}%>
+                <button class="btn btn-sm btn-primary rounded" type="submit"> Filter</button>
+            </form>
+        </div>
+     <div class="col-10">
+
+        <section  class="row products ">
+            <% for(let item of products){ %>
+                 <div class="col-lg-2 " style="margin-left: 4.8rem;">
+                     <div class="card mx-auto position-relative " style="width: 16.2rem; height: 420px;">
+                         <img src="<%= item.img %>" class="card-img-top " style="width: 100%;" alt="">
+                         <span class="badge rounded-pill bg-light text-dark w-25 position-absolute translate-middle-y" style="top:41%;left:5%"><%=item.avgRating%>  &star; | <%=item.reviews.length%></span>
+                         <div  class="card-body p-2  " style="margin-top: -1.20rem;">
+                            <h5 class="card-title d-flex justify-content-between align-items-center mb-1">
+                                <span><%= item.name%></span> 
+                                <span class="btn like-btn" product-id="<%=item._id%>" >
+                                    <% if(currentUser && currentUser.wishlist.includes(item._id)){ %>
+                                        <i class="fa-solid fa-heart"></i>
+                                    <% } else{ %>
+                                        <i class="fa-regular fa-heart"></i>
+                                    <% } %>
+                
+                                  </span>
+                              </h5>
+                              <div class="d-flex flex-column justify-content-between align-items-start mb-2 pera">
+                                <p class="card-text"><%= item.desc%></p>
+                              <% if(item.reviews.length){%>
+                                <p class="text-muted"><%=item.reviews.length%> reviews</p>
+                              <%}else{%>
+                                <p class="text-muted">No reviews </p>
+                             <% }%>
+                              <p class="card-text "><%= item.category%></p>
+                              <h6 class="card-title"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= item.price*2 %></span> Rs.<%= item.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
+                              </div>
+                              
+                              
+                              <div class="d-flex  justify-content-evenly">
+                                <a href="/products/<%= item._id%>" class="btn btn-sm btn-primary rounded-pill">View</a>
+                               
+                              <% if(currentUser && currentUser.role == 'seller'){ %>
+                                <form class="d-inline-block" action="/products/<%=item._id%>?_method=DELETE" method="post">
+                                  <button class="btn btn-sm btn-danger rounded-pill">Delete</button>
+                               </form>
+                                <% } %>
+                                <form
+                                    class="d-inline-block"
+                                    action="/user/<%=item._id%>/add"
+                                    method="POST"
+                                    >
+                                    <button class="btn btn-info btn-sm rounded-circle ms-5"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </form>
+                              </div>
+                         </div>
+                     </div>
+                 </div>
+                
+            <% } %>
+         </section>     
+        </div>
+    </div>
+   
+<script src="/js/common.js"></script>
+ 

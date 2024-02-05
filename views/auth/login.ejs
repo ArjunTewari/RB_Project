@@ -1,0 +1,26 @@
+<%- layout('layouts/boilerplate') %>
+
+<%-include('../partials/flash')%>
+
+
+
+<div class="row" style="margin-top: 80px;">
+   
+    <div class="col-6 mx-auto shadow w-25 p-3 mb-5 bg-body-light rounded">
+        <h1 class="display-6 mx-auto">Login</h1>
+        <form action="/login" method="POST">
+            <div class="mb-3">
+                <label for="naam" class="form-label">Username: </label>
+                <input type="text" class="form-control" name="username" id="naam" placeholder="Name of Product" required>
+            </div>
+            <div class="mb-3">
+                <label for="pass" class="form-label">Password: </label>
+                <input type="password" class="form-control" name="password" id="pass" placeholder="Password of the user" required >
+            </div>
+            <button type="submit" class="btn btn-sm btn-success">Login</button>
+            
+            <p class="fw-light mt-2">Do not have an account? <a href="/register">Signup</a></p>
+        </div>
+        </form>
+    </div>
+</div>

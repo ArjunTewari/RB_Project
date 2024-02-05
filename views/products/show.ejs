@@ -1,0 +1,159 @@
+<%- layout('layouts/boilerplate') %>
+
+<%-include('../partials/flash')%>
+
+
+<div class="row products vh-75">
+    <div class="col-lg-6 mt-3">
+      <div class="card mx-auto position-relative " style="width: 16.2rem; height: 410px;">
+        <img src="<%= foundProduct.img %>" class="card-img-top " style="width: 100%;" alt="">
+        <span class="badge rounded-pill bg-light text-dark w-25 position-absolute translate-middle-y" style="top:41%;left:5%"><%=foundProduct.avgRating%>  &star; | <%=foundProduct.reviews.length%></span>
+        <div  class="card-body p-2   ">
+           <h5 class="card-title d-flex justify-content-between align-items-center mb-1" style="margin-top: -0.65rem;">
+               <span><%= foundProduct.name%></span> 
+               <span class="btn like-btn" product-id="<%=foundProduct._id%>" >
+                   <% if(currentUser && currentUser.wishlist.includes(foundProduct._id)){ %>
+                       <i class="fa-solid fa-heart"></i>
+                   <% } else{ %>
+                       <i class="fa-regular fa-heart"></i>
+                   <% } %>
+
+                 </span>
+             </h5>
+             <div class="d-flex flex-column justify-content-between align-items-start  pera" style="margin-top: -0.65rem;">
+                <p class="card-text"><%= foundProduct.desc%></p>
+              <% if(foundProduct.reviews.length){%>
+                <p class="text-muted"><%=foundProduct.reviews.length%> reviews</p>
+              <%}else{%>
+                <p class="text-muted">No reviews </p>
+              <% }%>
+              <p class="card-text "><%= foundProduct.category%></p>
+              <h6 class="card-title"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= foundProduct.price*2 %></span> Rs.<%= foundProduct.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
+             </div>
+             <div class="d-flex  justify-content-evenly p-1" style="margin-top: -0.25;">
+              <% if(currentUser && currentUser.role == 'seller'){ %>
+                <a href="/products/<%=foundProduct._id%>/edit" class="btn btn-sm btn-danger rounded-pill"><i class="fa-solid fa-pen"></i></a>
+                <% } %>
+                <form
+                class="d-inline-block"
+                action="/user/<%=foundProduct._id%>/add"
+                method="POST"
+              >
+                <button class="btn btn-info btn-sm rounded-pill"><i class="fa-solid fa-cart-shopping"></i></button>
+              </form>
+               <a href="#" class="btn btn-sm btn-primary rounded-pill"><i class="fa-solid fa-credit-card"></i></a> 
+  
+             </div>
+           </div>
+     </div>    
+    </div>
+    <div class="col-lg-4 mt-4 border border-0 border-dark shadow-sm p-3 mb-5 bg-body-light-subtle rounded part1 ">
+        <h1 class="display">Leave Review</h1>
+        <form action="/products/<%= foundProduct._id%>/review"  method="POST">
+            <div>
+                <fieldset class="starability-basic">
+                
+                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="rating" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="rating" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="rating" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="rating" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="rating" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="comment">Comment:</label>
+               <textarea class="form-control" name="comment" id="comment"  rows="5"></textarea>
+            </div>
+            <button class="btn btn-sm btn-success">Add Review</button>
+        </form>
+
+        <div class="part2 mt-3 overflow-auto">
+            <div class="my-2">
+                <% for(let review of foundProduct.reviews){ %>
+                      <div class=" mt-2 border border-0 border-dark shadow-sm p-3 mb-5 bg-body-light-subtle rounded">
+                          
+                        <p class="text-sm-end fs-6 fst-italic mx-2">
+                            <% if(review.createdAt){ %>
+                                <%= review.createdAt.toDateString() %>
+                           <% } %>
+                        </p>
+                          <p class="starability-result" data-rating="<%= review.rating %>">
+                            Rated: <%= review.rating %> stars
+                          </p>
+                          <div class="card-body">
+                            
+                            <p class="card-text">comment: <%= review.comment %></p>
+                            <a href="#" class="btn btn-sm btn-primary">Delete</a>
+                          </div>
+                        </div>
+                <%  } %>
+              </div>
+        </div>
+    </div>
+
+    
+    
+   <% if(products.length){%>
+    <section  class="row products mx-auto ">
+      <% for(let item of products){ %>
+           <div class="col-lg-2 " style="margin-left: 4.8rem;">
+               <div class="card mx-auto position-relative " style="width: 16.2rem; height: 420px;">
+                   <img src="<%= item.img %>" class="card-img-top " style="width: 100%;" alt="">
+                   <span class="badge rounded-pill bg-light text-dark w-25 position-absolute translate-middle-y" style="top:41%;left:5%"><%=item.avgRating%>  &star; | <%=item.reviews.length%></span>
+                   <div  class="card-body p-2  " style="margin-top: -1.20rem;">
+                      <h5 class="card-title d-flex justify-content-between align-items-center mb-1">
+                          <span><%= item.name%></span> 
+                          <span class="btn like-btn" product-id="<%=item._id%>" >
+                              <% if(currentUser && currentUser.wishlist.includes(item._id)){ %>
+                                  <i class="fa-solid fa-heart"></i>
+                              <% } else{ %>
+                                  <i class="fa-regular fa-heart"></i>
+                              <% } %>
+          
+                            </span>
+                        </h5>
+                        <div class="d-flex flex-column justify-content-between align-items-start mb-2 pera">
+                          <p class="card-text"><%= item.desc%></p>
+                        <% if(item.reviews.length){%>
+                          <p class="text-muted"><%=item.reviews.length%> reviews</p>
+                        <%}else{%>
+                          <p class="text-muted">No reviews </p>
+                       <% }%>
+                        <p class="card-text "><%= item.category%></p>
+                        <h6 class="card-title"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= item.price*2 %></span> Rs.<%= item.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
+                        </div>
+                        
+                        
+                        <div class="d-flex  justify-content-evenly">
+                          <a href="/products/<%= item._id%>" class="btn btn-sm btn-primary rounded-pill">View</a>
+                         
+                        <% if(currentUser && currentUser.role == 'seller'){ %>
+                          <form class="d-inline-block" action="/products/<%=item._id%>?_method=DELETE" method="post">
+                            <button class="btn btn-sm btn-danger rounded-pill">Delete</button>
+                         </form>
+                          <% } %>
+                          <form
+                              class="d-inline-block"
+                              action="/user/<%=item._id%>/add"
+                              method="POST"
+                              >
+                              <button class="btn btn-info btn-sm rounded-circle ms-5"><i class="fa-solid fa-cart-shopping"></i></button>
+                      </form>
+                        </div>
+                   </div>
+               </div>
+           </div>
+          
+      <% } %>
+   </section>   
+  <% }%>    
+    
+</div>
+

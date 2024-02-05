@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg  h-75" style=" background-color: #7c4dff; color: #fff;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" href="/"><img src="../images/logobg.png" width="160px" height="55px"  alt=""></a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" style="color: #fff;" aria-current="page" href="/products">Home</a>
+          </li>
+          <%if(currentUser && currentUser.role === 'seller'){%>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #fff;" href="/products/new" tabindex="-1" aria-disabled="true">New Product</a>
+            </li>
+            <%}%>
+          <!-- <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li> -->
+        </ul>
+        <div class="d-flex" role="search">
+          <% if(!currentUser){ %>
+            <a href="/login" class="nav-link mx-2  ">Login</a> 
+            <a href="/register" class="nav-link mx-2 ">Register</a> 
+          <% } else { %>
+            <a href="#" class="nav-link text-capitalize mx-2">Hello, <%=currentUser.username%></i> 
+              <a href="/user/cart" class="nav-link mx-2" ><i class="fas fa-shopping-cart" style="color: #2e2d2d;"></i> 
+                <sup><span class="badge bg-danger"><%=currentUser.cart.length%></span></sup>
+              
+            </a>
+            <a href="/logout" class="nav-link">Logout</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>

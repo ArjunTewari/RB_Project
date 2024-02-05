@@ -1,0 +1,273 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+  /* overflow-x: hidden; */
+  width: 100vw;
+}
+
+
+
+
+:root{
+  --main-color:rgb(26, 24, 24);
+}
+
+header{
+  width: 100%;
+}
+
+main{
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+
+.products .card img{
+  height: 210px;
+  padding: 10px;
+}
+
+.show-btn{
+  background-color: var(--main-color);
+  color:white;
+}
+
+.show-btn:hover{
+  color: white;
+}
+
+.navbar-brand {
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.1em;
+}
+#heading {
+  width: 100%;
+  background-color: #e9ecef;
+  padding: 16px;
+  margin: 10px auto;
+  border-radius: 10px;
+  text-shadow: 0px 0px 2px rgba(0,0,0,0.6);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+footer{
+  background-color: var(--main-color);
+}
+
+@media screen and (max-width:560px){
+  .reviews-section{
+      width: 90vw;
+  }
+  #heading{
+      width: 75vw;
+  }
+}
+
+@media screen and (max-width:460px){
+ 
+  #heading{
+      width: 90vw;
+  }
+}
+
+.fa-heart{
+  color: red;
+}
+/* section{
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+} */
+
+.products .card img{
+  height: 210px;
+  padding: 10px;
+}
+
+.card {
+    /* min-width: 300px; */
+    margin-top: 20px;
+    /* padding: 20px; */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(110, 109, 109, 0.1);
+    text-align: center;
+   
+  }
+
+  .card:hover{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  
+  .card-img-top{
+    height: 210px;
+  } 
+
+  .part1{
+    height: 550px;
+  }
+
+  .part2{
+    height: 150px;
+  }
+
+  .pera p{
+    margin-bottom: 0.6rem;
+  }
+  .category{
+    /* border: 2px solid black;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    height: 320px;
+    margin-top: 150px;
+    
+
+  }
+
+  .checked > h2{
+    font-size: 25px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 700;
+  }
+
+  .checked{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 80%;
+    margin: 5px;
+  }
+
+  .round{
+    width: 200px;
+    padding: 10px;
+
+  }
+
+  .checkbox-field{
+    opacity: 0;
+  }
+
+  .checkbox-label{
+    position: relative;
+    padding-left: 40px;
+    font-size: 1.3rem;
+    line-height: 1rem;
+    cursor: pointer;
+  }
+
+  .checkbox-label::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top:0 ;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background: #e1dada;
+
+  }
+  .checkbox-label::after{
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    
+    border-radius: 1000%;
+    background:  #0ac744;
+    transform: rotate(-45deg);
+    /* transition: 0.2s ease; */
+  }
+
+  .checkbox-field:not(:checked) + .checkbox-label::after{
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  .checkbox-field:checked + .checkbox-label::after{
+    transform: rotate(35deg) scale(1);
+    opacity: 1;
+  }
+
+
+
+
+
+
+  /*======================
+    404 page
+=======================*/
+
+
+.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+}
+
+.page_404  img{ width:100%;}
+
+.four_zero_four_bg{
+ 
+ background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    width: 85vw;
+    height: 450px;
+    margin: 10px 0;
+    
+    background-position: center;
+ }
+ 
+ 
+ .four_zero_four_bg h1{
+ font-size:80px;
+ margin: 15px 0;
+ }
+ 
+  .four_zero_four_bg h3{
+			 font-size:80px;
+			 }
+			 
+			 .link_404{			 
+	color: #fff!important;
+    padding: 10px 20px;
+    background: #39ac31;
+    margin: 10px 0;
+    display: inline-block;}
+	.contant_box_404{ margin-top:-70px;}
+
+  /* close button cart */
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 25px;
+    height: 25px;
+    opacity: 0.3;
+  }
+  .close:hover {
+    opacity: 1;
+  }
+  .close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    background-color: #333;
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
+  }
