@@ -19,7 +19,7 @@ const User = require('./models/User');
 const dotenv = require('dotenv').config();
 
 // atls mongodb
-let url = "mongodb+srv://rahul971801:8076rahul@cluster0.kcjx2lg.mongodb.net/ShopifyretryWrites=true&w=majority"
+let url = "mongodb+srv://rahul971801:rahulPraj8822@cluster0.ehorgqn.mongodb.net/ShopifyretryWrites=true&w=majority"
 // mongooses connecting to db and creating db.
 mongoose.connect(url)
 .then(()=>{

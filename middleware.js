@@ -38,7 +38,8 @@ let validateReview = (req, res, next)=>{
 const isLoggedIn = (req,res,next)=>{
 
   if(req.xhr && !req.isAuthenticated()){
-      return res.error({msg : 'you need to login first'})
+    
+     return res.status(401).send('unauthorised');
   }
   
 
@@ -66,6 +67,7 @@ const isSeller = (req,res,next)=>{
 const isAuthor = async(req,res,next)=>{
   let {id} = req.params;
   let product = await Product.findById(id);
+  // console.log(product);
   if(!product.author.equals(req.user._id)){
       req.flash('error' , 'you donot have the permission' )
       return res.redirect(`/products/${id}`)
