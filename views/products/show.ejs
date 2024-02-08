@@ -3,7 +3,7 @@
 <%-include('../partials/flash')%>
 
 
-<div class="row products vh-75" style="margin-top: 40px;">
+<div class="row products vh-75" style="margin-top: 80px;">
     <div class="col-lg-6 mt-3">
       <div class="card mx-auto position-relative " style="width: 16.2rem; height: 410px;">
         <img src="<%= foundProduct.img %>" class="card-img-top " style="width: 100%;" alt="">
@@ -28,7 +28,7 @@
                 <p class="text-muted">No reviews </p>
               <% }%>
               <p class="card-text "><%= foundProduct.category%></p>
-              <h6 class="card-title"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= foundProduct.price*2 %></span> Rs.<%= foundProduct.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
+              <h6 class="card-title "  style="font-size: 14px;"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= foundProduct.price*2 %></span> Rs.<%= foundProduct.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
              </div>
              <div class="d-flex  justify-content-evenly p-1" style="margin-top: -0.25;">
               <% if(currentUser && currentUser.role == 'seller'){ %>
@@ -48,7 +48,7 @@
      </div>    
     </div>
     <div class="col-lg-4 mt-4 border border-0 border-dark shadow-sm p-3 mb-5 bg-body-light-subtle rounded part1 ">
-        <h1 class="display">Leave Review</h1>
+        <h1 class="display-6 mt-5 mx-auto " style="font-family: 'Times New Roman', Times, serif;">Leave Review</h1>
         <form action="/products/<%= foundProduct._id%>/review"  method="POST">
             <div>
                 <fieldset class="starability-basic">
@@ -71,7 +71,7 @@
                 <label class="form-label" for="comment">Comment:</label>
                <textarea class="form-control" name="comment" id="comment"  rows="5"></textarea>
             </div>
-            <button class="btn btn-sm btn-success">Add Review</button>
+            <div class="d-flex justify-content-center align-items-center"><button class="btn btn-sm btn-success">Add Review</button></div>
         </form>
 
         <div class="part2 mt-3 overflow-auto">
@@ -127,7 +127,7 @@
                           <p class="text-muted">No reviews </p>
                        <% }%>
                         <p class="card-text "><%= item.category%></p>
-                        <h6 class="card-title"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= item.price*2 %></span> Rs.<%= item.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
+                        <h6 class="card-title"  style="font-size: 14px;"><span class="fw-lighter fs-6 text-decoration-line-through">Rs.<%= item.price*2 %></span> Rs.<%= item.price %> <span class="fw-light fs-6 text-warning">( 50 % OFF )</span> </h6>
                         </div>
                         
                         

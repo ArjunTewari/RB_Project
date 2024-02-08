@@ -4,21 +4,21 @@
 
 <%-include('../partials/flash')%>
 
-<section class="container">
-  <h1 class="display-6 mt-5">MY CART</h1>
+<section class="container" style="margin-top: 70px;">
+  <h1 class="display-6 mt-5 text-center">MY CART</h1>
 
   <div class="row">
     <div class="col-lg-8">
       <% for(let item of user.cart){ %>
-      <div class="card mx-auto m-3 border" style="max-width: 500px">
-        <div class="row g-0">
+      <div class="card mx-auto m-3 border" style="max-width: 400px; max-height: 500px;">
+        <div class="row g-0" style="max-width: 400px; max-height: 500px">
           <div class="col-4">
-            <img class="img-fluid rounded-start" src="<%=item.img%>" alt="" />
+            <img class="img-fluid rounded-start" style="width: 100%;height: 100%;" src="<%=item.img%>" alt="" />
           </div>
-          <div class="col-8">
+          <div class="col-6">
             <div class="card-body">
-              <h5 class="card-title"><%=item.name%></h5>
-              <p class="card-text"><%=item.desc%></p>
+              <h5 class="card-title fw-bold" style="font-size: 18px;"><%=item.name%></h5>
+              <p class="card-text fw-semibold"  style="font-size: 15px;"><%=item.desc%></p>
               <a href="/user/cart/<%=item.id%>" class="close"></a>
             </div>
           </div>
@@ -26,14 +26,29 @@
       </div>
       <% } %>
     </div>
-    <div class="col-lg-4 shadow-sm   p-2  bg-body-light rounded m-5" style="height: 200px; width: 300px;">
-      <ul class="mt-2">
+    <div class="col-lg-4 shadow-sm   p-2  bg-body-light rounded m-5" style="height: 330px; width: 300px;">
+      <ul class="mt-2 " style="height: 80%; width: 90%;">
+        <p class="fw-semibold" style="font-size: 13px;">PRICE DETAILS</p>
+          <div class="d-flex  justify-content-between align-item-center">
+            <p class="fw-semibold">Product</p>
+            <p class="fw-semibold">Price</p>
+          </div>
         <% for(let item of user.cart){ %>
-        <li><span> <%=item.name%> --&gt; ₹ <%=item.price%> </span></li>
+          
+          <div class="d-flex  justify-content-between align-item-center">
+            <p><%=item.name%></p>
+            <p>₹ <%=item.price%></p>
+          </div>
+    
         <% } %>
-        <li>Total Amount: ₹ <%=totalAmount%></li>
+        <hr>
+        <div class="d-flex  justify-content-between align-item-center">
+          <p class="fw-semibold">Total Amount</p>
+          <p class="fw-semibold">₹ <%=totalAmount%></p>
+        </div>
+    
       </ul>
-      <a href="/checkout/<%=user._id%>"><button class="btn btn-sm btn-success">Checkout</button></a>
+      <a href="/checkout/<%=user._id%>"><button class="btn w-100 fw-bold order">PLACE ORDER</button></a>
     </div>
   </div>
 </section>

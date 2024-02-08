@@ -42,7 +42,7 @@ main{
 }
 
 .nav1{
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,.05);
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   background-color: #7c4dff;
    color: #fff; 
    width: 100%;
@@ -120,7 +120,7 @@ footer{
   } 
 
   .part1{
-    height: 550px;
+    height: 570px;
   }
 
   .part2{
@@ -139,7 +139,11 @@ footer{
     
 
   }
-
+  .order{
+    letter-spacing: 1px; 
+    background-color: rgb(255, 63, 108);
+    color: #fff;
+  }
   .checked > h2{
     font-size: 25px;
     font-family:'Times New Roman', Times, serif;

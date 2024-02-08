@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router(); //mini instance of app
-const { isLoggedIn} = require('../middleware');
+const { isLoggedIn , isAuthor} = require('../middleware');
 const Product = require("../models/Product");
 const User = require("../models/User");
 // tested key provided by stripe
@@ -32,44 +32,71 @@ router.get('/user/cart/:id',isLoggedIn, async(req, res)=>{
 
 // creating route for payment
 router.get('/checkout/:id',async(req,res)=>{
-  let userId = req.params.id;
-  let user = await User.findById(userId).populate("cart");
-  //   console.log(user, "sam");
- let totalAmount = user.cart.reduce((sum, curr) => sum + curr.price, 0);
-  let quantity1 = user.cart.length;
-   const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: 'inr',
-            product_data: {
-              name: 'T-shirt',
-            },
-            unit_amount: totalAmount*100,
-          },
-          quantity:quantity1
-        },
-      ],
-      mode: 'payment',
-      success_url: 'http://localhost:4242/success',
-      cancel_url: 'http://localhost:4242/cancel',
-    });
+
+  try{
+    let userId = req.params.id;
+    let user = await User.findById(userId).populate("cart");
+    //   console.log(user, "sam");
+   let totalAmount = user.cart.reduce((sum, curr) => sum + curr.price, 0);
+    let quantity1 = user.cart.length;
     
-    res.redirect(303, session.url);
+     const session = await stripe.checkout.sessions.create({ 
+  
+        line_items: user.cart.map((item)=>{
+          return {
+            price_data: {
+              currency: 'inr',
+              product_data: {
+                name: item.name,
+              },
+              unit_amount: item.price*100,
+            },
+            quantity:1
+          }
+        }),
+        mode: 'payment',
+        success_url: 'http://localhost:4242/success',
+        cancel_url: 'http://localhost:4242/cancel',
+        
+      });
+     
+      res.redirect(303, session.url);
+  }
+  catch(e){
+    res.status(500).render('error',{err:e.message});
+  }
+ 
 });
 
 //actually adding the product to the cart
 router.post('/user/:productId/add',isLoggedIn, async(req,res)=>{
-     let {productId} = req.params;
-     let userId = req.user._id;
-    let product =   await Product.findById(productId);
-    let user = await User.findById(userId);
-    user.cart.push(product);
-    await user.save();
-    res.redirect('/user/cart');
+  try{
+    let {productId} = req.params;
+    let userId = req.user._id;
+   let product =   await Product.findById(productId);
+   let user = await User.findById(userId);
+   user.cart.push(product);
+   await user.save();
+   res.redirect('/user/cart');
+  }
+  catch(e){
+    res.status(500).render('error',{err:e.message});
+}
+    
 })
 
+// wishlist route
+router.get('/user/wishlist',isLoggedIn, async(req,res)=>{
+  try{
+    let userId = req.user._id;
+    let user = await User.findById(userId).populate("wishlist");
+    res.render("products/wishlist", {products: user.wishlist});
+  }
+  catch(e){
+    res.status(500).render('error',{err:e.message});
+}
 
+})
 
 
 
